@@ -25,7 +25,11 @@ SECRET_KEY = 'guiwrosmdgbr(%j4%#=296a!wm7(g5550ox9iddb24bd_-@cva'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'nd8nzdi82e.execute-api.us-east-1.amazonaws.com',
+    'tdd-django.coltyharrison.com',
+    'localhost'
+]
 
 
 # Application definition
@@ -37,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'zappa_django_utils',
+    'storages',
     'lists',
     'functional_tests',
 ]
@@ -77,8 +83,9 @@ WSGI_APPLICATION = 'superlists.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'zappa_django_utils.db.backends.s3sqlite',
+        'NAME': 'db.sqlite3',
+        'BUCKET': 'tdd-django-db'
     }
 }
 
@@ -120,4 +127,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_STORAGE_BUCKET_NAME = 'tdd-django-static'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "django_settings": "superlists.settings",
+        "region": "us-east-1",
+        "profile_name": "zappa",
+        "project_name": "tdd-django-proj",
+        "domain": "tdd-django.coltyharrison.com",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-5oprmcokr"
+    }
+}
